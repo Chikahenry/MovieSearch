@@ -1,0 +1,24 @@
+.izi-input__section {
+    width: 40.7rem;
+    position: relative;
+  
+    &--fw {
+      width: 100%;
+    }
+  
+  }
+
+  .izi-input {
+    width: 100%;
+    outline: none;
+    height: 6.5rem;
+    background-color: rgba(#e7e9ff, 0.2);
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    border: 0.1rem solid #566ba03a;
+    padding: 2.5rem 0 2.5rem 2.7rem;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.02em;
+    color: #566ba0;
+  }
