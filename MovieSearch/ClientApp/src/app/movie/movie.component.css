@@ -1,0 +1,11 @@
+
+.title{
+  font-weight: 600;
+  font-size: 20px;
+}
+p{
+  margin-bottom: .1rem !important;
+}
+.image{
+  height: 5rem;
+}

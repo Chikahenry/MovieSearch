@@ -10,23 +10,32 @@ namespace MovieSearch.Service
 {
     public class MovieService : IMovieService
     {
-        private readonly OMDBOptions _omdbOptions;
         private readonly HttpClient _httpClient;
-        private readonly ILogger _logger;
-        private readonly IHostEnvironment _hostEvironment;
-        public MovieService(ILogger logger, IHostEnvironment hostEvironment, HttpClient httpClient, IOptions<OMDBOptions> omdbOptions)
+        public MovieService( HttpClient httpClient)
         {
-            _logger = logger;
-            _omdbOptions = omdbOptions.Value;
             _httpClient = httpClient;
-            _hostEvironment = hostEvironment;
         }
 
 
         public async Task<Movie> SerachMovie(string moiveTitle)
         {
 
-            string baseUrl = $"{_omdbOptions.BaseUrl}/?t={moiveTitle}&apikey={_omdbOptions.ApiKey}";
+            string baseUrl = $"{OMDBOptions.BaseUrl}/?t={moiveTitle}&apikey={OMDBOptions.ApiKey}";
+            var response = await _httpClient.GetAsync(baseUrl);
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            var movie = responseBody.FromJson<Movie>();
+            ArgumentNullException.ThrowIfNull(movie, nameof(movie));
+
+            return movie;
+
+        }
+
+        public async Task<Movie> GetMovie(string id)
+        {
+
+            string baseUrl = $"{OMDBOptions.BaseUrl}/?i={id}&apikey={OMDBOptions.ApiKey}";
             var response = await _httpClient.GetAsync(baseUrl);
             response.EnsureSuccessStatusCode();
 

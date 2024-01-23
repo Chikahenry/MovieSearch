@@ -1,6 +1,6 @@
 <h1 id="tableLabel">Movies</h1>
 
-<p>This component demonstrates fetching moive data from the server.</p>
+<p>This component demonstrates fetching movie data from the server.</p>
 
 <form action="#" class="form" [formGroup]="searchForm">
   <div class="mb-5">
@@ -9,33 +9,32 @@
           <input type="text" class="izi-input"
               formControlName="movieTitle"
               [class.dirty]="movieTitle?.dirty && movieTitle?.invalid">
+              <button (click)="searchMovie(searchForm.value)" class="btn-primary btn-lg me-md-4 ms-md-4" [disabled]="searchForm.invalid">
+                  Search
+              </button>
       </div>
-  </div>
-
-  <div class="d-grid gap-2">
-      <button (click)="searchMovie(searchForm.value)" class="btn-primary btn-lg me-md-4 ms-md-4" [disabled]="searchForm.invalid">
-          Search
-      </button>
+      <div>
+        <h2>Recent Searches</h2>
+        <ul>
+          <li *ngFor="let query of searchHistory">{{ query }}</li>
+        </ul>
+      </div>
   </div>
 </form>
 
 <p *ngIf="!movie"><em>Loading...</em></p>
 
-<!-- <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts.length">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
-    </tr>
-  </tbody>
-</table> -->
+<div class="movie" *ngIf="movie">
+  <div [routerLink]="['/movie', movie.imdbID]">
+    <div class="image">
+      <img src="{{movie.poster}}">
+    </div>
+    <div class="">
+      <p class="title pt-3" [routerLink]="['/movie', movie.imdbID]"><span>Title: </span>{{movie.title}}</p>
+      <p><span>Year: </span>{{movie.year}}</p>
+      <p><span>Genre: </span>{{movie.genre}}</p>
+      <p><span>Time: </span>{{movie.runtime}}</p>
+    </div>
+
+  </div>
+</div>

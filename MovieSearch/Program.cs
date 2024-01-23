@@ -5,8 +5,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:7009", "https://localhost:44441")
+               .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+        });
+
+});
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
-//builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddSingleton<IMovieService, MovieService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -21,7 +32,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseCors("AllowAll");
 
 app.MapControllerRoute(
     name: "default",

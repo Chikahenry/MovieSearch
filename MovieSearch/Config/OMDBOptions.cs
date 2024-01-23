@@ -5,13 +5,8 @@ namespace MovieSearch.Config
 {
     public class OMDBOptions
     {
-        [JsonIgnore]
-        public const string SectionName = "OMDB";
+        public const string BaseUrl = "https://www.omdbapi.com";
 
-        [Required]
-        public string BaseUrl { get; set; }
-
-        [Required]
-        public string ApiKey { get; set; }
+        public const string ApiKey = "d4e6166d";
     }
 }
